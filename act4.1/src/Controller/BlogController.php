@@ -26,10 +26,20 @@ class BlogController extends AbstractController
         ]);
      }
          /**
-     * @Route("/blog/12", name="blog_show")
+     * @Route("/blog/article{id}", name="blog_show" , methods={"GET","HEAD"},requirements={"id"="\d+"})
+     *
      */
-    public function show(){
+    public function show(int $id){
+      if($id==1){
         return $this->render('blog/show.html.twig');
+      }
+      elseif ($id==2){return $this->render('blog/show2.html.twig');
+
+      }
+      elseif ($id==3){return $this->render('blog/show3.html.twig');
+
+      }
+        
      }
      
 }
