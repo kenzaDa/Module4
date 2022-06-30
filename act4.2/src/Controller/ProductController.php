@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 class ProductController extends AbstractController
@@ -23,7 +24,7 @@ class ProductController extends AbstractController
         $user->setLastname('daghrir');
         $user->setEmail('kenza@talan.com');
         $user->setAddress('nabeul');
-        $user->setBirthdate('17/01/1997');
+        $user->setBirthdate(\DateTime::createFromFormat('Y-m-d', "1997-01-17"));
        
 
         // tell Doctrine you want to (eventually) save the Product (no queries yet)
