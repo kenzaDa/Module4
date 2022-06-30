@@ -75,4 +75,24 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+     /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function findById(int $id):array
+    {
+    
+            $entityManager = $this->getEntityManager();
+    
+            $query = $entityManager->createQuery(
+                'SELECT u
+                FROM App\Entity\User u
+                WHERE u.id = :id'
+    
+            )->setParameter('id', $id);
+    
+           
+            return $query->getResult();
+        }
 }

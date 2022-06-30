@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+Use App\Repository\UserRepository;
 
 
 class ProductController extends AbstractController
@@ -49,5 +50,23 @@ class ProductController extends AbstractController
       
          return $this->render('product/show.html.twig', ['users' => $users]);
     }
+     /**
+     * @Route("/getbyid/{id}", name="getbyid" , methods={"GET","HEAD"})
+     */
+    public function showById(int $id, UserRepository $UserRepository):Response
+    {
+        
+
+        
+        $user = $UserRepository->findById($id);
+        
+        return new Response('this is the user with id :' );
+     
+    }
+
+
+
+
 }
+
 
