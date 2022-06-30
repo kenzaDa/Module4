@@ -20,11 +20,11 @@ class ProductController extends AbstractController
         $entityManager = $doctrine->getManager();
 
         $user = new User();
-        $user->setFirstname('kenza');
+        $user->setFirstname('lina');
         $user->setLastname('daghrir');
-        $user->setEmail('kenza@talan.com');
+        $user->setEmail('lina@gmail.com');
         $user->setAddress('nabeul');
-        $user->setBirthdate(\DateTime::createFromFormat('Y-m-d', "1997-01-17"));
+        $user->setBirthdate(\DateTime::createFromFormat('Y-m-d', "2003-01-10"));
        
 
         // tell Doctrine you want to (eventually) save the Product (no queries yet)
@@ -34,6 +34,20 @@ class ProductController extends AbstractController
         $entityManager->flush();
 
         return new Response('Saved new user with id '.$user->getId());
+    }
+     /**
+     * @Route("/getall", name="getall")
+     */
+    public function show(ManagerRegistry $doctrine)
+    {
+        $users = $doctrine->getRepository(User::class)->findAll();
+
+        
+
+        //  return new Response('Here are all the users:');
+
+      
+         return $this->render('product/show.html.twig', ['users' => $users]);
     }
 }
 
