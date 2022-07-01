@@ -7,3 +7,5 @@ Poue cette activité, les objectifs sont:
 
 afin de pouvoir tirer les produit d'une cartegorie souhaitée utiliser la route /productsbycategory/{id_categorie}
 afin d'afficher un produit a partir de son id et afficher 5 autre produits de la meme categorie utiliser la route /productby/{id}
+
+@Route("/user/{id}"): affiche le nom de l'utilisateurs et les messages qu'il a.

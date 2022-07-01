@@ -30,16 +30,32 @@ class UserController extends AbstractController
     *   @Route("/messageby/{id}", name="messageby", methods={"GET","HEAD"})
     */
   
-    public function showMessage(UserRepository $UserRepository,MessageRepository $MessageRepository,$id)
-    {
-        $message = $MessageRepository->find($id);
-        $user= $UserRepository->find($message->getUsers());
-        $messages = $user->getMessages();
+    // public function showMessage(UserRepository $UserRepository,MessageRepository $MessageRepository,$id)
+    // {
+    //     $message = $MessageRepository->find($id);
+    //     $user= $UserRepository->find($message->getUsers());
+    //     $messages = $user->getMessages();
         
+    //     return $this->render('user/show.html.twig', [
+    //         'user' => $user,
+    //         'message' => $message,
+    //         'messages' => $messages
+    //     ]);
+    // }
+
+
+
+            /**
+     * @Route("/user/{id}", name="user.detail")
+     */
+    public function show(int $id , UserRepository $UserRepository)
+    {      $user = $UserRepository->findOneByIdJoinedToMessage($id);
+            
+
+        $message = $user->getMessage();
         return $this->render('user/show.html.twig', [
-            'user' => $user,
-            'message' => $message,
-            'messages' => $messages
-        ]);
+                    'user' => $user,
+                    'message' => $message,
+]);
     }
 }
