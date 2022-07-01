@@ -63,11 +63,6 @@ class ProduitController extends AbstractController
         {
             $Produits = $doctrine->getRepository(Produit::class)->findAll();
     
-            
-    
-            //  return new Response('Here are all the users:');
-    
-          
              return $this->render('show2.html.twig', ['produits' => $Produits]);
         }
 
