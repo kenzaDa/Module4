@@ -1,0 +1,20 @@
+{% extends 'base.html.twig'%}
+{% block body %}
+ 
+
+ <h1>Produit N° : {{produit.id}}</h1>
+<h1>Name :{{produit.Label}}</h1>
+<h1>Price :{{produit.Price}}</h1>
+
+ <h1>  les produits similaire de cette meme catégorie {{category.Name}}  sont  </h1>
+
+
+{% for key,produit in produits %}
+{% if key < 5 %}
+<h1>Produit N° : {{key + 1}}</h1>
+<h1>Name :{{produit.Label}}</h1>
+<h1>Price :{{produit.Price}}</h1>
+{% endif %}
+{% endfor %}
+
+{% endblock %}

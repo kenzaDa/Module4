@@ -1,0 +1,11 @@
+{% extends 'base.html.twig'%}
+{% block body %}
+ <h1> Tous les produits disponibles dans la categorie choisie {{category}}  sont </h1>
+  {% for produit in produits %}
+ <h3>produit n° {{produit.Id}}</h3> 
+<h3>Label : {{produit.Label}}</h3>
+  <h3>Price: {{produit.Price}}</h3>
+   <h3>Quantity: {{produit.Quantity}}</h3> 
+  
+{% endfor %} 
+{% endblock %}
