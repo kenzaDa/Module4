@@ -7,10 +7,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
-
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\Filesystem\Exception\InvalidArgumentException;
 use Symfony\Component\Filesystem\Exception\IOException;
+use App\Service\FileSystemImproved;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+
+
+
+
+
+
 
 class FilesController extends AbstractController
 {
@@ -24,19 +33,38 @@ class FilesController extends AbstractController
         ]);
     }
 
+
+
+    /**
+     * @Route("/find", name="finde")
+     */
+    public function find( Filesystem $filesystem ): Response
+    { 
+        $bundles = array();  
+$finder = new Finder();
+$finder->directories()->in('../..')->name('web');
+ 
+foreach ($finder as $f) {
+    $contents = $f->getRealPath();
+ 
+}
+return new Response($contents);
+}
+
+
 /**
-     * @Route("/create", name="create_files")
+     * @Route("/create/{filename}", name="create_files")
      */
 
-public function Create():Response
+public function Create(string $filename):Response
  {
 // init file system
 
 try {
-$fsObject = new Filesystem();
-$current_dir_path = getcwd();
+    $fsObject = new Filesystem();
+    $current_dir_path = getcwd();
  
-    $new_file_path = $current_dir_path . "/test.txt";
+    $new_file_path = $current_dir_path . "/$filename.txt";
  
     if (!$fsObject->exists($new_file_path))
     {
@@ -101,7 +129,7 @@ $current_dir_path = getcwd();
 /**
       * @Route("/delete/{filename}", name="delete_files" )
       */
-      public function Deletefile(string $filename):Response {
+      public function Delete(string $filename):Response {
 
         try {
             $fsObject = new Filesystem();
@@ -115,8 +143,48 @@ $current_dir_path = getcwd();
             }
     
         } catch (IOExceptionInterface $exception) {
-            echo "Error copying directory at". $exception->getPath();
+            echo "Error deleting directory at". $exception->getPath();
         }
         return new Response($filename . ' is deleted');
     }
+/**
+      * @Route("/state", name="state" )
+      */
+    public function State(){
+        return new JsonResponse(json_encode($returnValue));
+    }
+
+/**
+      * @Route("/create-file/{filename}", name="create-file" )
+      */
+    public function Create_File(FileSystemImproved $FSI,$filename){
+        $returnValue=$FSI->createFile($filename);
+        return new JsonResponse(json_encode($returnValue));
+    }
+/**
+      * @Route("/delete-file/{filename}", name="deletef" )
+      */
+      public function delete_File(FileSystemImproved $FSI,$filename){
+        $returnValue=$FSI->deleteFile($filename);
+        return new JsonResponse(json_encode($returnValue));
+        
+        
+        
+        
+        
+    }
+    /**
+      * @Route("/write-in-file/{filename}/{text}/{offset?}", name="writein" )
+      */
+      public function writeIn(){
+        return new JsonResponse(json_encode($returnValue));
+    }
+
+   /**
+      * @Route("/read-file/{filename}", name="read" )
+      */
+      public function read(){
+        return new JsonResponse(json_encode($returnValue));
+    }
+    
 }
