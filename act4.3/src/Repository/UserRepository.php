@@ -76,21 +76,4 @@ class UserRepository extends ServiceEntityRepository
     }
     */
 
-
-
-    
-
-    public function findOneByIdJoinedToMessage(int $UserId): ?User
-    {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT p, c
-            FROM App\Entity\User p
-            INNER JOIN p.message c
-            WHERE p.id = :id'
-        )->setParameter('id', $UserId);
-
-        return $query->getOneOrNullResult();
-    }
 }

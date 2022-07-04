@@ -1,7 +1,7 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}    {{ user.Name}} {% endblock %}
+{% block title %}    {{ user.FirstName}} {% endblock %}
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -12,12 +12,12 @@
 
  <ul class="list-group">
  <li class="list-group-item d-flex justify-content-between align-items-center text-white bg-primary ">
-    {{ user.Name}}
+    {{ user.FirstName}}
     <span class="badge badge-primary badge-pill">14</span>
   </li>
   {% for msg in message %}
   <li class="list-group-item d-flex justify-content-between align-items-center">
-    {{ msg.Text}}
+    {{ msg.title}}
     <span class="badge badge-primary badge-pill">14</span>
   </li>
   {% endfor %}

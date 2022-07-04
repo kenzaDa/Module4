@@ -48,14 +48,14 @@ class UserController extends AbstractController
             /**
      * @Route("/user/{id}", name="user.detail")
      */
-    public function show(int $id , UserRepository $UserRepository)
-    {      $user = $UserRepository->findOneByIdJoinedToMessage($id);
-            
+    public function show(int $id , UserRepository $userRepository)
+    {     
+        $user = $userRepository->find($id);
+        $messages = $user->getMessages();
 
-        $message = $user->getMessage();
         return $this->render('user/show.html.twig', [
                     'user' => $user,
-                    'message' => $message,
+                    'message' => $messages,
 ]);
     }
 }
