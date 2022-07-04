@@ -62,22 +62,23 @@ public function Create(string $filename):Response
 
 try {
     $fsObject = new Filesystem();
-    $current_dir_path = getcwd();
+    // $current_dir_path = getcwd();
  
-    $new_file_path = $current_dir_path . "/$filename.txt";
+    // $new_file_path = $current_dir_path . "/$filename.txt";
  
-    if (!$fsObject->exists($new_file_path))
+    if (!$fsObject->exists(dirname(getcwd()) . "\\vendor\symfony\http-client-contracts\Test\Fixtures\web\\".$filename.".txt"))
     {
-        $fsObject->touch($new_file_path);
-        $fsObject->chmod($new_file_path, 0777);
+        $fsObject->touch(dirname(getcwd()) . "\\vendor\symfony\http-client-contracts\Test\Fixtures\web\\".$filename.".txt");
+        $fsObject->chmod(dirname(getcwd()) . "\\vendor\symfony\http-client-contracts\Test\Fixtures\web\\".$filename.".txt", 0777);
         //  $fsObject->dumpFile($new_file_path, "Adding dummy content to bar.txt file.\n");
         //  $fsObject->appendToFile($new_file_path, "This should be added to the end of the file.\n");
-         $message="new file created";
+         $message ="new file created";
     }
 
 } catch (IOExceptionInterface $exception) {
     echo "Error creating file at". $exception->getPath();
 }
+
  return new Response($message);
 }
 
@@ -89,9 +90,9 @@ try {
    // init file system
    
    $fsObject = new Filesystem();
-   $current_dir_path = getcwd();
-   $new_file_path = $current_dir_path . "/$filename.txt";
-    { if (!$fsObject->exists($new_file_path)){
+//    $current_dir_path = getcwd();
+//    $new_file_path = $current_dir_path . "/$filename.txt";
+    { if (!$fsObject->exists(dirname(getcwd()) . "\\vendor\symfony\http-client-contracts\Test\Fixtures\web\\".$filename.".txt")){
         !$fsObject->dumpFile($filename, $text);
        
     }else{
@@ -109,9 +110,9 @@ try {
 
     try {
         $fsObject = new Filesystem();
-        $current_dir_path = getcwd();
-        $src_dir_path = $current_dir_path . "/$filename";
-        $dest_dir_path = $current_dir_path . "/$filename_copy";
+        $current_dir_path = dirname(getcwd()) . "\\vendor\symfony\http-client-contracts\Test\Fixtures\web\\" ;
+        $src_dir_path = $current_dir_path .$filename.".txt";
+        $dest_dir_path = $current_dir_path . $filename_copy.".txt";
      
         if (!$fsObject->exists($dest_dir_path))
         {
@@ -133,7 +134,7 @@ try {
 
         try {
             $fsObject = new Filesystem();
-            $current_dir_path = getcwd();
+            $current_dir_path =dirname(getcwd()) . "\\vendor\symfony\http-client-contracts\Test\Fixtures\web\\";
             $src_dir_path = $current_dir_path . "/$filename";
        
          
