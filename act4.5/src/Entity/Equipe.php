@@ -57,7 +57,7 @@ class Equipe
         return $this->joueur;
     }
 
-    public function setJoueur(string $joueur): self
+    public function setJoueur($joueur): self
     {
         $this->joueur = $joueur;
 
