@@ -13,7 +13,7 @@ class Equipe
     private $Nomequipe ;
     private $Ville;
     private $Sport;
-    private $joueur;
+    public $joueur;
 
 
     public function getNomequipe(): ?string
@@ -42,12 +42,12 @@ class Equipe
     }
     public function getSport(): ?string
     {
-        return $this->Nomequipe;
+        return $this->Sport;
     }
 
     public function setSport(string $Sport): self
     {
-        $this->Nomequipe = $Nomequipe;
+        $this->Sport = $Sport;
 
         return $this;
     }
