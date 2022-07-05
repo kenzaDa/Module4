@@ -52,7 +52,7 @@ class Equipe
         return $this;
     }
 
-    public function getJoueur(): ?Joueur
+    public function getJoueur()
     {
         return $this->joueur;
     }

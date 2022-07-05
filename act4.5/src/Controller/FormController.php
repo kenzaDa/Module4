@@ -128,7 +128,7 @@ class FormController extends AbstractController
      */
     public function imriquej(Request $request ){
 
-        $NewTest= new Equipe();
+        $NewTest= new Joueur();
         $form = $this->createForm(JoueurType::class, $NewTest);
     
         $form->handleRequest($request);

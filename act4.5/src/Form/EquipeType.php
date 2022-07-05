@@ -30,7 +30,7 @@ class EquipeType extends AbstractType
                     'Bascketball' => 6, 
                     'Hokey' => 7,
                 ],'required' => true],)
-            ->add('joueur',JoueurType::class,['required' => true])
+            ->add('joueur',JoueurType::class)
             ->add('valider', SubmitType::class);
         }
 
