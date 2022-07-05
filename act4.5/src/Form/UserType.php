@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Validator\Constraints\LessThan;
 use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\Length;
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -29,8 +30,21 @@ class UserType extends AbstractType
                     ])
                     ]
             ])
-            ->add('Adresse',textareaType::class,['required' => true])
-            ->add('Code_Postal')
+            ->add('Adresse',textareaType::class,['required' => true , 'constraints' => new Length([
+                'max' => 255
+            ])
+        ])
+            ->add('Code_Postal',NumberType::class, [
+                'required' => true,
+                'constraints' => [new LessThan([
+                    'value' => 100000,
+                    'message' => 'Le code postal doit être une valeur de 5 chiffres'
+                ]),
+                new GreaterThan([
+                    'value' => 9999,
+                    'message' => 'Le code postal doit être une valeur de 5 chiffres'
+                ])]
+            ])
             ->add('Ville',ChoiceType::class, [
                 'choices' => [
                     'Nabeul' => 1,
@@ -43,14 +57,14 @@ class UserType extends AbstractType
                 ],'required' => true],)
                 ->add('Permis',  ChoiceType::class, [
                     'choices' => [
-                        '' => false,
                         'AM' => 'AM',
                         'A1'=> 'A1',
                         'A2'=> 'A2' ,
                         'A'=> 'A',
                         'B1'=> 'B1',
-                        'B' =>   'B' 
-                    ]])
+                        'B' => 'B' 
+                    ]  , 'expanded' => true,
+                    'multiple' => false,'required' => false])
             ->add('envoyer', SubmitType::class)
           ;
         
