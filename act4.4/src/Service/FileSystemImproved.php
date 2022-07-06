@@ -13,27 +13,38 @@ use Symfony\Component\Filesystem\Exception\IOException;
 use App\Service\FileSystemImproved;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\EventListener\ExceptionListener;
+
+
 
 class FileSystemImproved {
 
+    private $fs;
+    private $finder;
 
-    public function createTable(){
-        $table=[];
-        
-    }
-
-    public function createFile($filename):Response
+    public function __construct()
     {
+        $this->fs = new Filesystem();
+       
+
+        if (!$this->fs->exists(dirname(getcwd()) . "\\vendor\symfony\http-client-contracts\Test\Fixtures\web\\fsi")) {
+            $this->fs->mkdir(dirname(getcwd()) . "\\vendor\symfony\http-client-contracts\Test\Fixtures\web\\fsi");
+        }
+    }
+    
+   
+    public function createFile($filename){
+
         try {
-            $fsObject = new Filesystem();
-            $current_dir_path = getcwd();
+           
+            $current_dir_path = dirname(getcwd()) ."\\vendor\symfony\http-client-contracts\Test\Fixtures\web\\fsi";
          
             $new_file_path = $current_dir_path . "/$filename.txt";
          
-            if (!$fsObject->exists($new_file_path))
+            if (!$this->fs->exists($new_file_path))
             {
-                $fsObject->touch($new_file_path);
-                $fsObject->chmod($new_file_path, 0777);
+                $this->fs->touch($new_file_path);
+                $this->fs->chmod($new_file_path, 0777);
                 //  $fsObject->dumpFile($new_file_path, "Adding dummy content to bar.txt file.\n");
                 //  $fsObject->appendToFile($new_file_path, "This should be added to the end of the file.\n");
                  $message="new file created";
@@ -46,23 +57,28 @@ class FileSystemImproved {
          return new Response($message);
     }
 
-public function deleteFile($filename):Response{
-    try {
-        $fsObject = new Filesystem();
-        $current_dir_path = getcwd();
-        $src_dir_path = $current_dir_path . "/$filename";
+
+
+
+public function deleteFile($filename){
+ 
+       
+        $current_dir_path = dirname(getcwd()) ."\\vendor\symfony\http-client-contracts\Test\Fixtures\web\\fsi";
+        $src_dir_path = $current_dir_path . "/$filename.txt";
    
      
-        if ($fsObject->exists($src_dir_path))
+        if (!$this->fs->exists($src_dir_path))
         {
-            $fsObject->remove(['symlink', $src_dir_path, "/$filename" ]);
+            $this->fs->remove(['symlink', $src_dir_path, "/$filename.txt" ]);
         }
 
-    } catch (IOExceptionInterface $exception) {
-        echo "Error deleting directory at". $exception->getPath();
-    }
-    return new Response($filename . ' is deleted');
+    
+    
+    
 }
+
+
+
 
 public function WriteInFile($filename ,$text, $offset = 0){
     
